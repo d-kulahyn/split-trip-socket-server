@@ -17,6 +17,7 @@ io.on('connection', (socket) => {
 });
 
 const PORT = 3000;
-httpServer.listen(PORT, () => {
-    console.log(`Socket server running on http://localhost:${PORT}`);
+const HOST = '0.0.0.0';
+httpServer.listen(PORT, HOST,() => {
+    console.log(`Socket server running on https://${HOST}:${PORT}`);
 });
