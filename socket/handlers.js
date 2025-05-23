@@ -20,11 +20,11 @@ export function handleLeaveRoom(socket) {
 }
 
 export function handleRoomMessage(socket, io) {
-    socket.on('room:message', ({ roomId, message }) => {
-        console.log(`📨 Message from ${socket.id} to room ${roomId}: ${message}`);
+    socket.on('room:message', ({ roomId, data }) => {
+        console.log(`📨 Message from ${socket.id} to room ${roomId}: ${data}`);
         socket.to(roomId).emit('room:message', {
             from: socket.id,
-            message,
+            data,
             roomId,
         });
     });
