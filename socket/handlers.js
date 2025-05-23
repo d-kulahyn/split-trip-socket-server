@@ -1,5 +1,5 @@
 export function handleRoomJoin(socket) {
-    socket.on('room:join', ({roomId, data}) => {
+    socket.on('room:join', ({roomId}) => {
         socket.join(roomId);
         console.log(`Socket ${socket.id} joined room ${roomId}`);
     });
@@ -19,11 +19,11 @@ export function handleLeaveRoom(socket) {
 }
 
 export function handleRoomMessage(socket, io) {
-    socket.on('room:message', ({ roomId, data }) => {
-        console.log(`📨 Message from ${socket.id} to room ${roomId}: ${data}`);
+    socket.on('room:message', ({ roomId, message }) => {
+        console.log(`📨 Message from ${socket.id} to room ${roomId}: ${message}`);
         socket.to(roomId).emit('room:message', {
             from: socket.id,
-            data,
+            message,
             roomId,
         });
     });
