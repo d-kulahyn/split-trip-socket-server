@@ -1,8 +1,8 @@
 export function handleRoomJoin(socket) {
-    socket.on('room:join', ({roomId, message}) => {
+    socket.on('room:join', ({roomId, data}) => {
         socket.join(roomId);
         console.log(`Socket ${socket.id} joined room ${roomId}`);
-        socket.to(roomId).emit('room:message', {from: socket.id, message, roomId});
+        socket.to(roomId).emit('room:message', {from: socket.id, data, roomId});
     });
 }
 
