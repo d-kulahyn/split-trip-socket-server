@@ -32,7 +32,10 @@ export function handleRoomMessage(socket, io) {
 export function handleRedisMessage(socket, io, redis) {
     redis.on('pmessage', (pattern, channel, message) => {
         console.log(`🔔 Redis message on room ${channel}:`, message);
-        message = JSON.parse(message);
-        socket.in(channel).emit(message.event, message.data);
+        socket.to(channel).emit('room:message', {
+            from: socket.id,
+            message,
+            channel
+        })
     });
 }
