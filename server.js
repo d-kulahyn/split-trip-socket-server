@@ -19,12 +19,21 @@ let redis = new Redis({
     db: process.env.REDIS_DB || 1,
 });
 
-redis.psubscribe('*', (err, count) => {
+await redis.psubscribe('room:*', (err, count) => {
     if (err) {
         console.error('Failed to subscribe to Redis channel:', err);
     } else {
         console.log(`Subscribed to ${count} Redis channels`);
     }
+});
+
+redis.on('pmessage', (pattern, channel, message) => {
+    console.log(`🔔 Redis message on room ${channel}:`, message);
+    io.to(channel).emit('room:message', {
+        from: socket.id,
+        message,
+        roomId: channel
+    })
 });
 
 io.on('connection', (socket) => {
