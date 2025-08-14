@@ -19,7 +19,7 @@ let redis = new Redis({
     db: process.env.REDIS_DB || 1,
 });
 
-await redis.psubscribe('room:*', (err, count) => {
+await redis.psubscribe('*', (err, count) => {
     if (err) {
         console.error('Failed to subscribe to Redis channel:', err);
     } else {
