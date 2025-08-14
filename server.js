@@ -30,6 +30,7 @@ await redis.psubscribe('*', (err, count) => {
 redis.on('pmessage', (pattern, channel, message) => {
     console.log(`🔔 Redis message on room ${channel}:`, message);
     io.to(channel).emit('room:message', {
+        from: 'service',
         message,
         roomId: channel
     })
