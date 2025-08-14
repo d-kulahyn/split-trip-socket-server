@@ -35,7 +35,7 @@ export function handleRedisMessage(socket, io, redis) {
         socket.to(channel).emit('room:message', {
             from: socket.id,
             message,
-            channel
+            roomId: channel
         })
     });
 }
